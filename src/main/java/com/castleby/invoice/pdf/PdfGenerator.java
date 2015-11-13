@@ -15,6 +15,11 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
+/**
+ * 
+ * @author taras.klym
+ *
+ */
 public class PdfGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PdfGenerator.class);
@@ -37,12 +42,12 @@ public class PdfGenerator {
                     new JREmptyDataSource());
             JasperExportManager.exportReportToPdfFile(jasperPrint, reportName);
         } catch (JRException e) {
-            LOGGER.error("Exception during report generation");
+            LOGGER.error("Exception during report generation", e);
         }        
     }
     
-    public OutputStream getStream() {
-        OutputStream outStream = new ByteArrayOutputStream();
+    public ByteArrayOutputStream getStream() {
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         try {
             JasperReport jasperReport = JasperCompileManager
                     .compileReport(PdfGenerator.class.getResourceAsStream(TEMPLATE_PATH + templateName));
@@ -50,7 +55,7 @@ public class PdfGenerator {
                     new JREmptyDataSource());
             JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
         } catch (JRException e) {
-            LOGGER.error("Exception during report generation");
+            LOGGER.error("Exception during report generation", e);
         }
         return outStream;
     }

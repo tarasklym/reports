@@ -4,12 +4,24 @@
   "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="HelloJasper_report">
+<parameter name="Author" class="java.lang.String"/>
  <detail>
-    <band height="20">
+    <band height="200">
       <staticText>
         <reportElement x="220" y="0" width="200" height="20"/>
-        <text><![CDATA[Hello Sensei!]]></text>
+        <text>
+        <![CDATA[$P{Author}]]>
+        </text>
       </staticText>
+               <textField isBlankWhenNull="true">
+            <reportElement x="220" y="0" width="200" height="20"/>
+            <textElement textAlignment="Center">
+                 <font size="10"/>
+            </textElement>
+            <textFieldExpression class="java.lang.String">
+               <![CDATA[$P{Author}]]>
+            </textFieldExpression>
+         </textField>
     </band>
   </detail>
 </jasperReport>
